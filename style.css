@@ -1,0 +1,78 @@
+* {
+	box-sizing: border-box;
+	margin: 0px;
+	padding: 0px;
+}
+
+body {
+	background-color: #e3f2fd;
+}
+
+.container {
+	width: 100%;
+	height: 100vh;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	flex-direction: column;
+}
+
+.main-matrix {
+	width: 630px;
+	height: 630px;
+	background-color: rgb(198, 212, 212);
+	display: grid;
+	grid-template-columns: repeat(9, 1fr);
+	/* padding: 10px; */
+}
+
+.squad {
+	width: 70px;
+	height: 70px;
+	background-color: #7d945d;
+	border: 1px solid black;
+	/* border-radius: px; */
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	border-radius: 10px;
+}
+
+.goal-keeping-zone-1 {
+	height: 70px;
+	width: 630px;
+	display: flex;
+	flex-direction: row;
+	align-items: center;
+	justify-content: center;
+}
+
+.goal-keeping-zone-1 .squad {
+	background-color: rgba(0, 0, 0, 0.518);
+	border: 1px solid black;
+}
+
+.white {
+	background-color: #eeeed5;
+}
+
+.squad img {
+	width: 100%;
+}
+
+.ball {
+	height: 80%;
+	padding: 3px;
+}
+
+/* 
+.fade {
+
+} */
+
+.dot-action {
+	height: 20px;
+	width: 20px;
+	border-radius: 50%;
+	background-color: #638046;
+}
