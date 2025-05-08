@@ -62,7 +62,8 @@ body {
 
 .ball {
 	height: 80%;
-	padding: 3px;
+	width: 100%;
+	padding: 7px;
 }
 
 /* 
@@ -75,4 +76,32 @@ body {
 	width: 20px;
 	border-radius: 50%;
 	background-color: #638046;
+}
+
+.white-dot {
+	background-color: white !important;
+}
+.Order-section {
+	text-align: center;
+	height: 30px;
+	width: 20%;
+	background-color: #bdbd0d;
+	margin-bottom: 20px;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	font-weight: bold;
+	border-radius: 10px;
+	font-family: Arial, Helvetica, sans-serif;
+}
+
+.Order-section span {
+	width: 30%;
+	padding: 2px;
+	font-family: Georgia, 'Times New Roman', Times, serif;
+	height: 80%;
+	color: white;
+	background-color: black;
+	border-radius: 10px;
+	margin-left: 13px;
 }
