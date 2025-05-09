@@ -7,11 +7,55 @@ const matrix = [[], [], [], [], [], [], [], [], [], [], []],
 	whitePieces = document.querySelectorAll('.white-pieces')
 
 let Dots = false,
-	Order = true
+	Order = Math.random() < 0.5
 // Matrix building
 squadsBoard.forEach((item, index) => {
 	if (index % 2 == 0) item.classList.add('white')
 })
+
+changeOrder()
+changeOrder()
+
+squadsBoard.forEach((item, idx) => {
+	let j = Math.floor(idx / 9) + 1
+	matrix[j].push(item)
+})
+
+for (let i = 0; i < 9; i++) {
+	if (2 < i && i < 6) {
+		matrix[0].push(squads[i - 2])
+	} else matrix[0].push(0)
+}
+for (let i = 0; i < 9; i++) {
+	if (2 < i && i < 6) {
+		matrix[10].push(squads[87 - 5 + i])
+	} else matrix[10].push(0)
+}
+function startMatrix() {
+	matrix[1][4].innerHTML =
+		'<img class="black-pieces black-rook black rook" src="./images/pieces/black/rook.png" alt="">'
+	matrix[9][4].innerHTML =
+		'<img class="white-pieces whitee rook" src="./images/pieces/white/rook.png" alt="">'
+
+	matrix[6][1].innerHTML =
+		'<img class="white-pieces piece whitee" src="./images/pieces/white/bishop.png" alt="">'
+
+	matrix[7][5].innerHTML =
+		'<img class="white-pieces piece whitee" src="./images/pieces/white/bishop.png" alt="">'
+	matrix[5][5].innerHTML =
+		'<img class="black-pieces piece black" src="./images/pieces/black/knight.png" alt="">'
+
+	matrix[5][3].innerHTML =
+		'<img class="white-pieces piece whitee" src="./images/pieces/white/knight.png" alt="">'
+
+	matrix[2][2].innerHTML =
+		'<img class="black-pieces piece black" src="./images/pieces/black/bishop.png" alt="">'
+
+	matrix[3][7].innerHTML =
+		'<img class="black-pieces piece black" src="./images/pieces/black/bishop.png" alt="">'
+	matrix[5][4].innerHTML = '<img src="./images/ball.jpg" alt="" class="ball">'
+	//
+}
 
 function buildMatrix() {
 	squadsBoard.forEach((item, idx) => {
@@ -88,7 +132,7 @@ function buildMatrix1() {
 	matrix[5][5].innerHTML =
 		'<img class="white-pieces piece whitee" src="./images/pieces/white/knight.png" alt="">'
 
-	matrix[2][2].innerHTML =
+	matrix[2][3].innerHTML =
 		'<img class="black-pieces piece black" src="./images/pieces/black/bishop.png" alt="">'
 
 	matrix[3][6].innerHTML =
@@ -97,7 +141,7 @@ function buildMatrix1() {
 	//
 }
 
-buildMatrix()
+startMatrix()
 
 const pieces = document.querySelectorAll('img')
 const canMovePieces = document.querySelectorAll('.piece')
@@ -396,9 +440,10 @@ function Goalll() {
 
 window.addEventListener('click', e => {
 	if (
-		e.target.classList.contains('white-dot') ||
-		(e.target.childNodes[0] &&
-			e.target.childNodes[0].classList.contains('white-dot'))
+		Dots &&
+		(e.target.classList.contains('white-dot') ||
+			(e.target.childNodes[0] &&
+				e.target.childNodes[0].classList.contains('white-dot')))
 	) {
 		if (e.target.classList.contains('white-dot')) console.log()
 		if (e.target.classList.contains('white-dot')) {
@@ -437,9 +482,9 @@ function clearMatrix() {
 	})
 }
 
-let duration = 600 // 5 daqiqa = 300 sekund
-let timerInterval
 function startTimer() {
+	let duration = 601 // 5 daqiqa = 300 sekund
+	let timerInterval
 	clearInterval(timerInterval) // oldingi timer bo‘lsa to‘xtat
 	let timeLeft = duration
 
@@ -453,10 +498,39 @@ function startTimer() {
 
 		if (timeLeft <= 0) {
 			clearInterval(timerInterval)
-			alert('Vaqt tugadi!')
+			if (blackScore == whiteScore) {
+				clearMatrix()
+				document.querySelector('.keeper-zone').style.display = 'flex'
+				document.querySelector('.squad').style.cssText = 'border:none'
+				document.querySelector('.squad').style.cssText =
+					'background-color: #e3f2fd;'
+				document.querySelector('.squad').innerHTML =
+					'<img class="black-pieces piece black" src="./images/pieces/black/rook.png" alt="">'
+				console.log(matrix)
+			} else {
+				Winning()
+			}
 		}
 
 		timeLeft--
 	}, 1000)
 }
 startTimer()
+
+function Winning() {
+	document.querySelector('.container').style.display = 'none'
+	document.querySelector('.container-1').style.display = 'flex'
+	document.querySelectorAll('.score1')[1].textContent = blackScore
+	document.querySelectorAll('.score1')[0].textContent = whiteScore
+	document.querySelector('.btn-res').addEventListener('click', () => {
+		startTimer()
+		document.querySelector('.container').style.display = 'flex'
+		document.querySelector('.container-1').style.display = 'none'
+		blackScore = 0
+		whiteScore = 0
+		scores[0].textContent = whiteScore
+		scores[1].textContent = blackScore
+		clearMatrix()
+		startMatrix()
+	})
+}
