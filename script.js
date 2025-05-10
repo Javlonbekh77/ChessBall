@@ -7,8 +7,6 @@ const matrix = [[], [], [], [], [], [], [], [], [], [], []],
 	whitePieces = document.querySelectorAll('.white-pieces'),
 	Pieces = {
 		black: {
-			rook: [0, 0],
-			knight: [0, 0],
 			bishop: [
 				[0, 0],
 				[0, 0],
@@ -16,8 +14,6 @@ const matrix = [[], [], [], [], [], [], [], [], [], [], []],
 			],
 		},
 		white: {
-			rook: [0, 0],
-			knight: [0, 0],
 			bishop: [
 				[0, 0],
 				[0, 0],
@@ -41,17 +37,17 @@ squadsBoard.forEach((item, idx) => {
 	matrix[j].push(item)
 })
 
-for (let i = 0; i < 9; i++) {
-	if (2 < i && i < 6) {
-		matrix[0].push(squads[i - 2])
-	} else matrix[0].push(0)
-}
-for (let i = 0; i < 9; i++) {
-	if (2 < i && i < 6) {
-		matrix[10].push(squads[87 - 5 + i])
-	} else matrix[10].push(0)
-}
 function startMatrix() {
+	for (let i = 0; i < 9; i++) {
+		if (2 < i && i < 6) {
+			matrix[0].push(squads[i - 2])
+		} else matrix[0].push(0)
+	}
+	for (let i = 0; i < 9; i++) {
+		if (2 < i && i < 6) {
+			matrix[10].push(squads[87 - 5 + i])
+		} else matrix[10].push(0)
+	}
 	matrix[1][4].innerHTML =
 		'<img class="black-pieces black-rook black rook" src="./images/pieces/black/rook.png" alt="">'
 	matrix[9][4].innerHTML =
@@ -60,22 +56,23 @@ function startMatrix() {
 	matrix[6][1].innerHTML =
 		'<img class="white-pieces piece whitee" src="./images/pieces/white/bishop.png" alt="">'
 
-	matrix[7][5].innerHTML =
+	matrix[6][0].innerHTML =
 		'<img class="white-pieces piece whitee" src="./images/pieces/white/bishop.png" alt="">'
-	matrix[8][2].innerHTML =
+	matrix[6][2].innerHTML =
 		'<img class="white-pieces piece whitee" src="./images/pieces/white/bishop.png" alt="">'
-	matrix[5][5].innerHTML =
-		'<img class="black-pieces piece black" src="./images/pieces/black/knight.png" alt="">'
-	matrix[3][5].innerHTML =
-		'<img class="black-pieces piece black" src="./images/pieces/black/bishop.png" alt="">'
 
 	matrix[5][3].innerHTML =
 		'<img class="white-pieces piece whitee" src="./images/pieces/white/knight.png" alt="">'
 
-	matrix[2][2].innerHTML =
+	matrix[5][5].innerHTML =
+		'<img class="black-pieces piece black" src="./images/pieces/black/knight.png" alt="">'
+
+	matrix[4][0].innerHTML =
+		'<img class="black-pieces piece black" src="./images/pieces/black/bishop.png" alt="">'
+	matrix[4][1].innerHTML =
 		'<img class="black-pieces piece black" src="./images/pieces/black/bishop.png" alt="">'
 
-	matrix[3][7].innerHTML =
+	matrix[4][2].innerHTML =
 		'<img class="black-pieces piece black" src="./images/pieces/black/bishop.png" alt="">'
 	matrix[5][4].innerHTML = '<img src="./images/ball.jpg" alt="" class="ball">'
 	//
@@ -95,7 +92,7 @@ function Piece1(x, y) {
 			})
 		}
 	} else if (y > 5) {
-		for (let i = 6; i < 10; i++) {
+		for (let i = 5; i < 10; i++) {
 			matrix[i].forEach((item, index) => {
 				if (item.innerHTML == '') {
 					if ((i == 9 || i == 8) && index > 2 && index < 6) console.log('adf')
@@ -108,54 +105,37 @@ function Piece1(x, y) {
 
 // oldRules()
 function buildMatrix() {
-	squadsBoard.forEach((item, idx) => {
-		let j = Math.floor(idx / 9) + 1
-		matrix[j].push(item)
-	})
-
-	for (let i = 0; i < 9; i++) {
-		if (2 < i && i < 6) {
-			matrix[0].push(squads[i - 3])
-		} else matrix[0].push(0)
-	}
-	for (let i = 0; i < 9; i++) {
-		if (2 < i && i < 6) {
-			matrix[10].push(squads[87 - 6 + i])
-		} else matrix[10].push(0)
-	}
-
 	matrix[1][4].innerHTML =
 		'<img class=" black-rook black rook" src="./images/pieces/black/rook.png" alt="">'
 	matrix[9][4].innerHTML =
 		'<img class=" whitee rook" src="./images/pieces/white/rook.png" alt="">'
 
-	matrix[6][1].innerHTML =
-		'<img class="white-pieces piece whitee" src="./images/pieces/white/bishop.png" alt="">'
-
-	matrix[7][5].innerHTML =
-		'<img class="white-pieces piece whitee" src="./images/pieces/white/bishop.png" alt="">'
+	Pieces.black.bishop.forEach(item => {
+		let y = item[0]
+		let x = item[1]
+		matrix[y][x].innerHTML =
+			'<img class="black-pieces piece black" src="./images/pieces/black/bishop.png" alt="">'
+	})
+	Pieces.white.bishop.forEach(item => {
+		let y = item[0]
+		let x = item[1]
+		matrix[y][x].innerHTML =
+			'<img class="white-pieces piece whitee" src="./images/pieces/white/bishop.png" alt="">'
+	})
 	matrix[5][5].innerHTML =
 		'<img class="black-pieces piece black" src="./images/pieces/black/knight.png" alt="">'
 
-	matrix[6][7].innerHTML =
+	matrix[5][3].innerHTML =
 		'<img class="white-pieces piece whitee" src="./images/pieces/white/knight.png" alt="">'
-
-	matrix[2][2].innerHTML =
-		'<img class="black-pieces piece black" src="./images/pieces/black/bishop.png" alt="">'
-
-	matrix[3][7].innerHTML =
-		'<img class="black-pieces piece black" src="./images/pieces/black/bishop.png" alt="">'
 	matrix[5][4].innerHTML = '<img src="./images/ball.jpg" alt="" class="ball">'
-	//
 }
+let oldClickHandlers = []
 
 function oldRules() {
 	squadsBoard.forEach((item, index) => {
-		item.addEventListener('click', () => {
+		const handler = () => {
 			if (item.childNodes[0]) {
-				if (item.childNodes[0].classList.contains('rook') && Dots == false) {
-					Rook(item.childNodes[0], index % 9, Math.floor(index / 9) + 1)
-				} else if (item.childNodes[0].classList.contains('dot-action')) {
+				if (item.childNodes[0].classList.contains('dot-action')) {
 					moveItems = [index % 9, Math.floor(index / 9) + 1]
 					Replace()
 				} else if (
@@ -169,57 +149,87 @@ function oldRules() {
 			} else {
 				clearAllDots()
 			}
+		}
+
+		item.addEventListener('click', handler)
+		oldClickHandlers.push({ element: item, handler }) // Saqlab qo‘yamiz
+	})
+}
+
+function removeOldRules() {
+	oldClickHandlers.forEach(({ element, handler }) => {
+		element.removeEventListener('click', handler)
+	})
+	oldClickHandlers = [] // Tozalaymiz
+}
+
+function Rules() {
+	squadsBoard.forEach((item, index) => {
+		item.addEventListener('click', () => {
+			if (item.childNodes[0]) {
+				if (item.childNodes[0].classList.contains('rook') && Dots == false) {
+					Rook(item.childNodes[0], index % 9, Math.floor(index / 9) + 1)
+				} else if (item.childNodes[0].classList.contains('dot-action')) {
+					moveItems = [index % 9, Math.floor(index / 9) + 1]
+					Replace()
+				} else if (
+					item.childNodes[0].classList.contains('ball') &&
+					Dots == false
+				) {
+					if (checkAround(index % 9, Math.floor(index / 9) + 1))
+						Ball(index % 9, Math.floor(index / 9) + 1)
+				} else if (
+					item.childNodes[0].classList.contains('piece') &&
+					Dots == false
+				) {
+					if (
+						(item.childNodes[0].classList.contains('black') && Order) ||
+						(item.childNodes[0].classList.contains('whitee') && Order == false)
+					)
+						Piece(index % 9, Math.floor(index / 9) + 1)
+				} else {
+					clearAllDots()
+				}
+			} else {
+				clearAllDots()
+			}
 		})
 	})
 }
-// let intervalId = setInterval(oldRules, 1000)
-// document.querySelector('.btn-start').addEventListener('click', () => {
-// 	clearInterval(intervalId)
-// 	startTimer()
-// 	let interId = setInterval(Rules, 100)
-// })
-Rules()
 
-function buildMatrix1() {
-	squadsBoard.forEach((item, idx) => {
-		let j = Math.floor(idx / 9) + 1
-		matrix[j].push(item)
-	})
+// Dastlab eski rulesni ishga tushuramiz
+oldRules()
 
-	for (let i = 0; i < 9; i++) {
-		if (2 < i && i < 6) {
-			matrix[0].push(squads[i - 3])
-		} else matrix[0].push(0)
+// Start tugmasi bosilganda eski rulesni o‘chirib, yangisini ishga tushuramiz
+document.querySelector('.btn-start').addEventListener('click', () => {
+	document.querySelector('.btn-start').style.display = 'none'
+	startTimer()
+	cloneMatrix()
+	removeOldRules() // <-- Eski eventlarni o‘chirish
+	Rules() // <-- Yangi eventlarni qo‘shish
+})
+
+function cloneMatrix() {
+	let row = 0
+	for (let i = 2; i < 5; i++) {
+		matrix[i].forEach((item, index) => {
+			if (item.childNodes[0]) {
+				Pieces.black.bishop[row] = [i, index]
+				row++
+			}
+		})
 	}
-	for (let i = 0; i < 9; i++) {
-		if (2 < i && i < 6) {
-			matrix[10].push(squads[87 - 6 + i])
-		} else matrix[10].push(0)
+	row = 0
+	for (let i = 6; i < 9; i++) {
+		matrix[i].forEach((item, index) => {
+			if (item.childNodes[0]) {
+				Pieces.white.bishop[row] = [i, index]
+				row++
+			}
+		})
 	}
 
-	matrix[1][4].innerHTML =
-		'<img class="black-pieces black-rook black rook" src="./images/pieces/black/rook.png" alt="">'
-	matrix[9][4].innerHTML =
-		'<img class="white-pieces whitee rook" src="./images/pieces/white/rook.png" alt="">'
-
-	matrix[6][1].innerHTML =
-		'<img class="white-pieces piece whitee" src="./images/pieces/white/bishop.png" alt="">'
-
-	matrix[8][6].innerHTML =
-		'<img class="white-pieces piece whitee" src="./images/pieces/white/bishop.png" alt="">'
-	matrix[4][2].innerHTML =
-		'<img class="black-pieces piece black" src="./images/pieces/black/knight.png" alt="">'
-
-	matrix[5][5].innerHTML =
-		'<img class="white-pieces piece whitee" src="./images/pieces/white/knight.png" alt="">'
-
-	matrix[2][3].innerHTML =
-		'<img class="black-pieces piece black" src="./images/pieces/black/bishop.png" alt="">'
-
-	matrix[3][6].innerHTML =
-		'<img class="black-pieces piece black" src="./images/pieces/black/bishop.png" alt="">'
-	matrix[5][4].innerHTML = '<img src="./images/ball.jpg" alt="" class="ball">'
-	//
+	// console.log(Pieces)
 }
 
 startMatrix()
@@ -231,7 +241,7 @@ const rook = document.querySelectorAll('.rook')
 function showDots(y, x, name) {
 	Dots = true
 	if (name == 'rook') {
-		console.log(x)
+		// console.log(x)
 		if (2 < x - 1 && matrix[y][x - 1].innerHTML == '') {
 			matrix[y][x - 1].innerHTML = "<div class='dot-action'></div>"
 		}
@@ -282,7 +292,7 @@ const mass = [
 	[0, 2],
 ]
 function Ball(x, y) {
-	console.log('This is a ball')
+	// console.log('This is a ball')
 	let option
 	if (Order) option = 'black'
 	else option = 'whitee'
@@ -322,7 +332,7 @@ function Ball(x, y) {
 			if (row == 10 && y > 5 && Order) {
 				matrix[row][x].innerHTML =
 					"<div style='background-color: white;' class='white-dot dot-action'></div>"
-				console.log('Goll')
+				// console.log('Goll')
 			} else matrix[row][x].innerHTML = "<div class='dot-action'></div>"
 
 		row++
@@ -359,12 +369,12 @@ function Ball(x, y) {
 		) {
 			if (matrix[row][column].innerHTML == '') {
 				if (column == 5 && row == 9 && 10 > y && y > 5 && Order) {
-					console.log('Goall')
+					// console.log('Goall')
 					matrix[row + 1][column].innerHTML =
 						"<div style='background-color: white;' class='white-dot dot-action'></div>"
 				}
 				if (column == 4 && row == 9 && 10 > y && y > 5 && Order) {
-					console.log('Goall')
+					// console.log('Goall')
 					matrix[row + 1][column].innerHTML =
 						"<div style='background-color: white;' class='white-dot dot-action'></div>"
 				}
@@ -457,44 +467,6 @@ function checkAround(x, y) {
 	return false
 }
 
-function Rules() {
-	squadsBoard.forEach((item, index) => {
-		item.addEventListener('click', () => {
-			if (item.childNodes[0]) {
-				if (item.childNodes[0].classList.contains('rook') && Dots == false) {
-					Rook(item.childNodes[0], index % 9, Math.floor(index / 9) + 1)
-					console.log(selectedItems)
-				} else if (item.childNodes[0].classList.contains('dot-action')) {
-					moveItems = [index % 9, Math.floor(index / 9) + 1]
-					Replace()
-				} else if (
-					item.childNodes[0].classList.contains('ball') &&
-					Dots == false
-				) {
-					// console.log('this is a ball')
-					// Baallll
-					if (checkAround(index % 9, Math.floor(index / 9) + 1))
-						Ball(index % 9, Math.floor(index / 9) + 1)
-				} else if (
-					item.childNodes[0].classList.contains('piece') &&
-					Dots == false
-				) {
-					// console.log('it is a piece')
-					if (
-						(item.childNodes[0].classList.contains('black') && Order) ||
-						(item.childNodes[0].classList.contains('whitee') && Order == false)
-					)
-						Piece(index % 9, Math.floor(index / 9) + 1)
-				} else {
-					clearAllDots()
-				}
-			} else {
-				clearAllDots()
-			}
-		})
-	})
-}
-
 let whiteScore = 0,
 	blackScore = 0
 
@@ -506,12 +478,12 @@ function changeOrder() {
 }
 
 function Replace() {
-	console.log(selectedItems, moveItems)
+	// console.log(selectedItems, moveItems)
 	let x1 = selectedItems[0],
 		y1 = selectedItems[1],
 		x2 = moveItems[0],
 		y2 = moveItems[1]
-	console.log(x1, y1, x2, y2)
+	// console.log(x1, y1, x2, y2)
 	let alfa = matrix[y1][x1].childNodes[0]
 	matrix[y2][x2].innerHTML = matrix[y1][x1].innerHTML
 	matrix[y1][x1].innerHTML = ''
@@ -522,6 +494,7 @@ const scores = document.querySelectorAll('.score')
 function Goalll() {
 	document.querySelector('.goall').computedStyleMap.display = 'flex'
 }
+let isPenalty = false
 
 window.addEventListener('click', e => {
 	if (
@@ -540,19 +513,21 @@ window.addEventListener('click', e => {
 		matrix[selectedItems[1]][selectedItems[0]].innerHTML = ''
 		clearAllDots()
 		selectedItems = []
+		// console.log('fdas')
 		document.querySelector('.goall').style.display = 'flex'
 
 		const setTime = setTimeout(() => {
-			clearMatrix()
 			if (Order) {
 				scores[1].textContent = blackScore + 1
 				blackScore++
-				buildMatrix1()
 			} else {
 				scores[0].textContent = whiteScore + 1
 				whiteScore++
-				buildMatrix()
 			}
+			if (!isPenalty) {
+				clearMatrix()
+				buildMatrix()
+			} else console.log('nima')
 			changeOrder()
 		}, 2000)
 	}
@@ -568,7 +543,7 @@ function clearMatrix() {
 }
 
 function startTimer() {
-	let duration = 5 // 5 daqiqa = 300 sekund
+	let duration = 1 // 5 daqiqa = 300 sekund
 	let timerInterval
 	clearInterval(timerInterval) // oldingi timer bo‘lsa to‘xtat
 	let timeLeft = duration
@@ -576,18 +551,20 @@ function startTimer() {
 	timerInterval = setInterval(() => {
 		const minutes = Math.floor(timeLeft / 60)
 		const seconds = timeLeft % 60
+		if (timeLeft >= 0)
+			document.querySelector('.time').textContent = `${minutes
+				.toString()
+				.padStart(2, '0')}:${seconds.toString().padStart(2, '0')}`
 
-		document.querySelector('.time').textContent = `${minutes
-			.toString()
-			.padStart(2, '0')}:${seconds.toString().padStart(2, '0')}`
-
-		if (timeLeft <= 0) {
-			clearInterval(timerInterval)
+		if (timeLeft < -3) {
 			if (blackScore == whiteScore) {
-				console.log('Draw')
+				// console.log('Draw')
+				isPenalty = true
+				Penalty()
 			} else {
 				Winning()
 			}
+			clearInterval(timerInterval)
 		}
 
 		timeLeft--
@@ -600,16 +577,110 @@ function Winning() {
 	document.querySelectorAll('.score1')[1].textContent = blackScore
 	document.querySelectorAll('.score1')[0].textContent = whiteScore
 	document.querySelector('.btn-res').addEventListener('click', () => {
-		startTimer()
-		document.querySelector('.container').style.display = 'flex'
-		document.querySelector('.container-1').style.display = 'none'
-		blackScore = 0
-		whiteScore = 0
-		scores[0].textContent = whiteScore
-		scores[1].textContent = blackScore
-		clearMatrix()
-		startMatrix()
+		// startTimer()
+		// document.querySelector('.container').style.display = 'flex'
+		// document.querySelector('.container-1').style.display = 'none'
+		// blackScore = 0
+		// whiteScore = 0
+		// scores[0].textContent = whiteScore
+		// scores[1].textContent = blackScore
+		// clearMatrix()
+		// startMatrix()
+		location.reload()
 	})
 }
 
-startTimer()
+let Gs = 0
+
+function newRules() {
+	document.querySelector('.ball').addEventListener('click', () => {
+		for (let i = 3; i < 6; i++) {
+			matrix[0][i].innerHTML =
+				"<div style='background-color: white;' class='white-dot dot-action'></div>"
+		}
+	})
+	changeOrder()
+	let option
+	// console.log(Order)
+
+	window.addEventListener('click', e => {
+		selectedItems = [4, 2]
+		if (
+			e.target.classList.contains('white-dot') ||
+			(e.target.childNodes[0] &&
+				e.target.childNodes[0].classList.contains('white-dot'))
+		) {
+			// console.log('Gs', Gs)
+			document.querySelector('.squad').innerHTML = ''
+			const rand = [1, 2, 3][Math.floor(Math.random() * 3)]
+
+			if (e.target.classList.contains('white-dot')) {
+				e.target.parentElement.innerHTML = matrix[2][4].innerHTML
+			} else {
+				e.target.innerHTML = matrix[2][4].innerHTML
+			}
+			clearAllDots()
+			if (matrix[0][rand + 2].innerHTML == '') {
+				if (!Order) option = ['white', 'black']
+				else option = ['black', 'white']
+				matrix[0][
+					rand + 2
+				].innerHTML = `<img class=" ${option[1]}-rook rook" src="./images/pieces/${option[1]}/rook.png" alt="">`
+				matrix[2][4].innerHTML = ''
+				selectedItems = []
+				document.querySelector('.goall').style.display = 'flex'
+				matrix[2][4].innerHTML = ''
+				const setTime = setTimeout(() => {
+					if (Order) {
+						scores[1].textContent = blackScore + 1
+						blackScore++
+					} else {
+						scores[0].textContent = whiteScore + 1
+						whiteScore++
+					}
+
+					if (Gs > 0 && Gs % 2 == 0 && blackScore != whiteScore) Winning()
+					changeOrder()
+					Penalty()
+				}, 3000)
+			} else {
+				if (Order) option = ['white', 'black']
+				else option = ['black', 'white']
+				matrix[0][
+					rand + 2
+				].innerHTML = `<img class=" ${option[0]}-rook rook" src="./images/pieces/${option[0]}/rook.png" alt="">`
+				// matrix[1][rand + 2].innerHTML = matrix[2][4].innerHTML
+
+				// matrix[2][4].innerHTML = ''
+				// console.log('No Goall')
+				matrix[2][4].innerHTML = ''
+				setTimeout(() => {
+					if (Gs > 0 && Gs % 2 == 0 && blackScore != whiteScore) Winning()
+					changeOrder()
+					Penalty()
+				}, 3000)
+			}
+		}
+	})
+}
+
+function Penalty() {
+	Gs++
+	clearMatrix()
+	let option
+	// console.log(Order)
+	if (Order) option = ['white', 'black']
+	else option = ['black', 'white']
+	document.querySelector('.keeper-zone').style.display = 'flex'
+	// console.log('Penalty')
+	const sq1 = document.querySelector('.squad')
+	let i = 0
+	matrix[2][4].innerHTML = '<img src="./images/ball.jpg" alt="" class="ball">'
+	sq1.innerHTML = `<img class=" ${option[0]}-rook rook" src="./images/pieces/${option[0]}/rook.png" alt="">`
+	matrix[3][3].innerHTML = `<img class=" ${option[1]}-rook $ piece" src="./images/pieces/${option[1]}/knight.png" alt="">`
+	selectedItems = [4, 2]
+	newRules()
+
+	// console.log(whiteScore, blackScore)
+	changeOrder()
+}
