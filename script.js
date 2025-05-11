@@ -24,7 +24,7 @@ const matrix = [[], [], [], [], [], [], [], [], [], [], []],
 		},
 	}
 
-let duration = 1
+let duration = 600
 let Dots = false,
 	Order = Math.random() < 0.5
 // Matrix building
