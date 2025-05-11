@@ -12,6 +12,7 @@ const matrix = [[], [], [], [], [], [], [], [], [], [], []],
 				[0, 0],
 				[0, 0],
 			],
+			knight: [],
 		},
 		white: {
 			bishop: [
@@ -19,9 +20,11 @@ const matrix = [[], [], [], [], [], [], [], [], [], [], []],
 				[0, 0],
 				[0, 0],
 			],
+			knight: [],
 		},
 	}
 
+let duration = 1
 let Dots = false,
 	Order = Math.random() < 0.5
 // Matrix building
@@ -54,12 +57,12 @@ function startMatrix() {
 		'<img class="white-pieces whitee rook" src="./images/pieces/white/rook.png" alt="">'
 
 	matrix[6][1].innerHTML =
-		'<img class="white-pieces piece whitee" src="./images/pieces/white/bishop.png" alt="">'
+		'<img class="white-pieces piece whitee bishop" src="./images/pieces/white/bishop.png" alt="">'
 
 	matrix[6][0].innerHTML =
-		'<img class="white-pieces piece whitee" src="./images/pieces/white/bishop.png" alt="">'
+		'<img class="white-pieces piece whitee bishop" src="./images/pieces/white/bishop.png" alt="">'
 	matrix[6][2].innerHTML =
-		'<img class="white-pieces piece whitee" src="./images/pieces/white/bishop.png" alt="">'
+		'<img class="white-pieces piece bishop whitee" src="./images/pieces/white/bishop.png" alt="">'
 
 	matrix[5][3].innerHTML =
 		'<img class="white-pieces piece whitee" src="./images/pieces/white/knight.png" alt="">'
@@ -68,12 +71,12 @@ function startMatrix() {
 		'<img class="black-pieces piece black" src="./images/pieces/black/knight.png" alt="">'
 
 	matrix[4][0].innerHTML =
-		'<img class="black-pieces piece black" src="./images/pieces/black/bishop.png" alt="">'
+		'<img class="black-pieces piece black bishop" src="./images/pieces/black/bishop.png" alt="">'
 	matrix[4][1].innerHTML =
-		'<img class="black-pieces piece black" src="./images/pieces/black/bishop.png" alt="">'
+		'<img class="black-pieces piece black bishop" src="./images/pieces/black/bishop.png" alt="">'
 
 	matrix[4][2].innerHTML =
-		'<img class="black-pieces piece black" src="./images/pieces/black/bishop.png" alt="">'
+		'<img class="black-pieces piece black bishop" src="./images/pieces/black/bishop.png" alt="">'
 	matrix[5][4].innerHTML = '<img src="./images/ball.jpg" alt="" class="ball">'
 	//
 }
@@ -100,10 +103,29 @@ function Piece1(x, y) {
 				}
 			})
 		}
+	} else if (y == 5) {
+		if (matrix[y][x].childNodes[0].classList.contains('white-pieces')) {
+			for (let i = 5; i < 10; i++) {
+				matrix[i].forEach((item, index) => {
+					if (item.innerHTML == '') {
+						if ((i == 9 || i == 8) && index > 2 && index < 6) console.log('adf')
+						else item.innerHTML = "<div class='dot-action'></div>"
+					}
+				})
+			}
+		} else {
+			for (let i = 1; i < 6; i++) {
+				matrix[i].forEach((item, index) => {
+					if (item.innerHTML == '') {
+						if ((i == 2 || i == 1) && index > 2 && index < 6) console.log('adf')
+						else item.innerHTML = "<div class='dot-action'></div>"
+					}
+				})
+			}
+		}
 	}
 }
 
-// oldRules()
 function buildMatrix() {
 	matrix[1][4].innerHTML =
 		'<img class=" black-rook black rook" src="./images/pieces/black/rook.png" alt="">'
@@ -114,18 +136,24 @@ function buildMatrix() {
 		let y = item[0]
 		let x = item[1]
 		matrix[y][x].innerHTML =
-			'<img class="black-pieces piece black" src="./images/pieces/black/bishop.png" alt="">'
+			'<img class="black-pieces piece black bishop" src="./images/pieces/black/bishop.png" alt="">'
 	})
 	Pieces.white.bishop.forEach(item => {
 		let y = item[0]
 		let x = item[1]
 		matrix[y][x].innerHTML =
-			'<img class="white-pieces piece whitee" src="./images/pieces/white/bishop.png" alt="">'
+			'<img class="white-pieces piece whitee bishop" src="./images/pieces/white/bishop.png" alt="">'
 	})
-	matrix[5][5].innerHTML =
+	let bkx, bky
+	bkx = Pieces.black.knight[1]
+	bky = Pieces.black.knight[0]
+	let wkx, wky
+	wkx = Pieces.white.knight[1]
+	wky = Pieces.white.knight[0]
+	matrix[bky][bkx].innerHTML =
 		'<img class="black-pieces piece black" src="./images/pieces/black/knight.png" alt="">'
 
-	matrix[5][3].innerHTML =
+	matrix[wky][wkx].innerHTML =
 		'<img class="white-pieces piece whitee" src="./images/pieces/white/knight.png" alt="">'
 	matrix[5][4].innerHTML = '<img src="./images/ball.jpg" alt="" class="ball">'
 }
@@ -205,26 +233,45 @@ document.querySelector('.btn-start').addEventListener('click', () => {
 	document.querySelector('.btn-start').style.display = 'none'
 	startTimer()
 	cloneMatrix()
+	yurish = true
 	removeOldRules() // <-- Eski eventlarni o‘chirish
 	Rules() // <-- Yangi eventlarni qo‘shish
 })
 
 function cloneMatrix() {
 	let row = 0
-	for (let i = 2; i < 5; i++) {
+	for (let i = 2; i <= 5; i++) {
 		matrix[i].forEach((item, index) => {
-			if (item.childNodes[0]) {
+			if (
+				item.childNodes[0] &&
+				item.childNodes[0].classList.contains('black-pieces') &&
+				item.childNodes[0].classList.contains('bishop')
+			) {
 				Pieces.black.bishop[row] = [i, index]
 				row++
+			} else if (
+				item.childNodes[0] &&
+				item.childNodes[0].classList.contains('black-pieces')
+			) {
+				Pieces.black.knight = [i, index]
 			}
 		})
 	}
 	row = 0
-	for (let i = 6; i < 9; i++) {
+	for (let i = 5; i < 9; i++) {
 		matrix[i].forEach((item, index) => {
-			if (item.childNodes[0]) {
+			if (
+				item.childNodes[0] &&
+				item.childNodes[0].classList.contains('white-pieces') &&
+				item.childNodes[0].classList.contains('bishop')
+			) {
 				Pieces.white.bishop[row] = [i, index]
 				row++
+			} else if (
+				item.childNodes[0] &&
+				item.childNodes[0].classList.contains('white-pieces')
+			) {
+				Pieces.white.knight = [i, index]
 			}
 		})
 	}
@@ -267,6 +314,7 @@ function clearAllDots() {
 
 let selectedItems = []
 let moveItems = []
+let yurish = false
 
 function Rook(rook, x, y) {
 	if (Dots == false) {
@@ -488,7 +536,7 @@ function Replace() {
 	matrix[y2][x2].innerHTML = matrix[y1][x1].innerHTML
 	matrix[y1][x1].innerHTML = ''
 	clearAllDots()
-	changeOrder()
+	if (yurish) changeOrder()
 }
 const scores = document.querySelectorAll('.score')
 function Goalll() {
@@ -543,7 +591,6 @@ function clearMatrix() {
 }
 
 function startTimer() {
-	let duration = 1 // 5 daqiqa = 300 sekund
 	let timerInterval
 	clearInterval(timerInterval) // oldingi timer bo‘lsa to‘xtat
 	let timeLeft = duration
@@ -572,6 +619,7 @@ function startTimer() {
 }
 
 function Winning() {
+	document.querySelector('body').style.padding = '0px'
 	document.querySelector('.container').style.display = 'none'
 	document.querySelector('.container-1').style.display = 'flex'
 	document.querySelectorAll('.score1')[1].textContent = blackScore

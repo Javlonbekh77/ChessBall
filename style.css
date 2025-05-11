@@ -172,7 +172,7 @@ body {
 }
 .live {
 	width: 100%;
-	height: 50 px;
+	height: 50px;
 	display: flex;
 	gap: 10px;
 	flex-direction: row;
@@ -219,7 +219,7 @@ body {
 }
 
 .container-1 .live span {
-	height: 30%;
+	height: 100%;
 }
 
 .live span {
@@ -272,15 +272,28 @@ h3 {
 	.timer span {
 		width: 40%;
 	}
+	#king1 {
+		width: 14%;
+	}
 }
 
-@media (min-width: 1000px) and (max-width: 620px) {
+@media (max-width: 1000px) {
 	.container {
 		transform: scale(0.8);
 	}
-	.goall span {
+	#live {
+		transform: scale(0.8);
+	}
+	/* .goall span {
 		width: 80%;
 		font-size: 10px;
+	} */
+	#king1 {
+		width: 20%;
+	}
+	.container-1 {
+		border-end-end-radius: 550px;
+		border-end-start-radius: 550px;
 	}
 }
 
@@ -416,4 +429,167 @@ h3 {
 
 .keeper-zone {
 	display: none;
+}
+
+@media (max-width: 800px) {
+	.Order-section {
+		position: relative;
+		/* left: -50px; */
+		top: -40px;
+	}
+	.timer span {
+		width: 70%;
+	}
+	.info-sec {
+		width: 60%;
+	}
+	.info-sec span {
+		width: 50%;
+	}
+	/* body {
+		margin-top: 5%;
+	} */
+	.live-sec {
+		padding-left: 20px;
+	}
+	.king {
+		width: 45%;
+	}
+}
+
+@media (max-width: 750px) {
+	.live-sec {
+		transform: scale(0.8);
+	}
+	.btn-start {
+		width: 80%;
+	}
+}
+
+@media (max-width: 480px) {
+	.Order-section {
+		top: -20px;
+	}
+
+	.dot-action {
+		width: 10px;
+		height: 10px;
+	}
+	.live span {
+		/* display: none; */
+		width: 200px;
+	}
+	.container {
+		height: 495px;
+	}
+	.main-matrix {
+		width: 405px;
+		height: 405px;
+	}
+	.squad {
+		width: 45px;
+		height: 45px;
+	}
+
+	.live-sec {
+		padding-right: 30px;
+	}
+	.timer span {
+		width: 140%;
+	}
+	.goall span {
+		width: 250%;
+		font-size: 20px;
+	}
+	.btn-start {
+		width: 140%;
+	}
+	.king {
+		width: 40px;
+	}
+	.btn-res {
+		transform: scale(0.75);
+	}
+}
+
+@media (max-width: 430px) {
+	.Order-section {
+		position: relative;
+		/* left: -50px; */
+		top: -20px;
+	}
+	.dot-action {
+		width: 10px;
+		height: 10px;
+	}
+	.live span {
+		/* display: none; */
+		width: 300px;
+	}
+	.container {
+		height: 440px;
+	}
+	.main-matrix {
+		width: 360px;
+		height: 360px;
+	}
+	.squad {
+		width: 40px;
+		height: 40px;
+	}
+
+	.live-sec {
+		padding: 0px 30px;
+	}
+	.timer span {
+		width: 440%;
+		font-size: 18px;
+	}
+	.goall span {
+		width: 350%;
+		font-size: 20px;
+	}
+	.btn-start {
+		width: 440%;
+		font-size: 14px;
+	}
+	.king {
+		width: 40px;
+	}
+	.container-1 {
+		height: 530px;
+		border-end-end-radius: 12250px;
+		border-end-start-radius: 12250px;
+		padding: 0px 10px;
+		/* border-bottom-right-radius: 50%; */
+	}
+	.goal-keeping-zone-1 {
+		width: 120px;
+	}
+}
+
+@media (max-width: 370px) {
+	.btn-start {
+		/* position: relative;
+		left: -50px; */
+		width: auto;
+	}
+	.timer span {
+		width: auto;
+	}
+}
+
+@media (max-width: 300px) {
+	.container {
+		transform: scale(0.7);
+	}
+	.Order-section {
+		position: relative;
+		/* left: -50px; */
+		top: -60px;
+	}
+	.live-sec {
+		position: relative;
+		left: -40px;
+	}
 }
