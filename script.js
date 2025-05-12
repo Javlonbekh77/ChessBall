@@ -23,10 +23,33 @@ const matrix = [[], [], [], [], [], [], [], [], [], [], []],
 			knight: [],
 		},
 	}
-
+let yurish = false
 let duration = 600
+let Time = 10
 let Dots = false,
 	Order = Math.random() < 0.5
+
+const plus = document.querySelectorAll('.pluss')[1],
+	minus = document.querySelectorAll('.pluss')[0]
+
+plus.addEventListener('click', () => {
+	if (!yurish) {
+		Time++
+		document.querySelector('.time').innerHTML = `${Time}:00`
+		duration += 60
+	}
+})
+
+minus.addEventListener('click', () => {
+	if (!yurish && Time > 1) {
+		Time--
+
+		if (Time < 10) document.querySelector('.time').innerHTML = `0${Time}:00`
+		else document.querySelector('.time').innerHTML = `${Time}:00`
+		duration -= 60
+	}
+})
+
 // Matrix building
 squadsBoard.forEach((item, index) => {
 	if (index % 2 == 0) item.classList.add('white')
@@ -231,6 +254,9 @@ oldRules()
 // Start tugmasi bosilganda eski rulesni o‘chirib, yangisini ishga tushuramiz
 document.querySelector('.btn-start').addEventListener('click', () => {
 	document.querySelector('.btn-start').style.display = 'none'
+	document.querySelectorAll('.pluss').forEach(item => {
+		item.style.display = 'none'
+	})
 	startTimer()
 	cloneMatrix()
 	yurish = true
@@ -314,7 +340,6 @@ function clearAllDots() {
 
 let selectedItems = []
 let moveItems = []
-let yurish = false
 
 function Rook(rook, x, y) {
 	if (Dots == false) {
