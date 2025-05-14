@@ -50,6 +50,20 @@ minus.addEventListener('click', () => {
 	}
 })
 
+function Learn() {
+	document.querySelector('.container').style.filter = 'blur(4px)'
+	document.querySelector('.main-container').style.display = 'flex'
+	document.querySelector('.Yes').addEventListener('click', () => {
+		document.querySelector('.container').style.filter = 'blur(0px)'
+		document.querySelector('.main-container').style.display = 'none'
+	})
+	document.querySelector('.No').addEventListener('click', () => {
+		window.location.href = 'https://chessball.my.canva.site/'
+	})
+}
+
+setTimeout(Learn, 3000)
+
 // Matrix building
 squadsBoard.forEach((item, index) => {
 	if (index % 2 == 0) item.classList.add('white')
